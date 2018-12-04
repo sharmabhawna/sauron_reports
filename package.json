@@ -9,10 +9,15 @@
     "serve": "gatsby serve"
   },
   "dependencies": {
+    "babel-plugin-styled-components": "^1.9.2",
     "gatsby": "^2.0.33",
+    "gatsby-plugin-styled-components": "^3.0.4",
     "gatsby-source-filesystem": "^2.0.10",
     "gatsby-transformer-json": "^2.1.6",
+    "moment": "^2.22.2",
     "react": "^16.5.1",
-    "react-dom": "^16.5.1"
+    "react-dom": "^16.5.1",
+    "react-moment": "^0.8.4",
+    "styled-components": "^4.1.2"
   }
 }
