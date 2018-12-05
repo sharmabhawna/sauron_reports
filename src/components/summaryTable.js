@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Moment from "react-moment";
 
 const toRow = ({node},index) => {
-  let results = node.job.results.testResult;    
+  let results = node.job.results.testResult;
   return <tr>
     <td>{index+1}</td>
     <td>{node.pusher.name}</td>

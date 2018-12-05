@@ -15,7 +15,7 @@ const Layout = props => <MainContainer>{props.children}</MainContainer>
 
 export default ({data}) => {
   const commitsPerPerson = latestCommitPerPerson(data.allDataJson.edges);
-  const sortedCommits = ld.sortBy(commitsPerPerson,(c)=>c.node.pusher.name);
+  const sortedCommits = ld.sortBy(commitsPerPerson,(c)=>c.node.job.results.testResult.failed.length);
   return (<div><GlobalStyle/><Layout><SummaryTable commits={sortedCommits}/></Layout></div>)
 }
 
