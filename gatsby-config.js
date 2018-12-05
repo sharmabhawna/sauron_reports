@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: '/sauron_reports',
   plugins: [
     `gatsby-transformer-json`,
     {
