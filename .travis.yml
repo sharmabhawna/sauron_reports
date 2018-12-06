@@ -8,6 +8,7 @@ install:
 - npm install
 - mkdir data
 - curl -vvv -H "$HEADER" "$DATA_ENDPOINT" > data/data.json
+- cat data/data.json
 script:
 - gatsby build
 deploy:
