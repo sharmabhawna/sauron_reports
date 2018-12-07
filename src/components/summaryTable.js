@@ -1,13 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import Moment from "react-moment";
+import {Link} from "gatsby";
+
+const linkToInternPage = intern => `/interns/${intern}`;
 
 const toRow = ({node},index) => {
   let results = node.job.results.testResult;
-  return <tr>
+  let intern = node.pusher.name;
+  return <tr key={node.id}>
     <td>{index+1}</td>
-    <td>{node.pusher.name}</td>
-    <td>{node.commit.id.substr(0,8)}</td>
+    <td><Link to={linkToInternPage(intern)}>{node.pusher.name}</Link></td>
+    <td><a href={node.commit.url}>{node.commit.id.substr(0,8)}</a></td>
     <td>{results.total - results.failed.length} / {results.total}</td>
     <td><Moment fromNow ago>{node.commit.timestamp}</Moment></td>
   </tr>

@@ -1,7 +1,6 @@
 import React from "react"
-import { graphql } from "gatsby";
 import SummaryTable from "../components/summaryTable";
-import SummaryCard from "../components/summaryCard";
+import SummaryCards from "../components/summaryCards";
 import GlobalStyle from "../components/globalStyle";
 import {latestCommitPerPerson} from "../utils.js";
 import styled from "styled-components";
@@ -22,13 +21,12 @@ const numberPassed = ({node}) => {
 export default ({data}) => {
   const commitsPerPerson = latestCommitPerPerson(data.allDataJson.edges);
   const sortedCommits = ld.sortBy(commitsPerPerson,numberPassed).reverse();
-  const summaryCards = sortedCommits.map(x=><SummaryCard node={x.node}/>);
 
   return (<div>
     <GlobalStyle/>
     <Layout>
       <SummaryTable commits={sortedCommits}/>
-      <div>{summaryCards}</div>
+      <SummaryCards data={sortedCommits}/>
     </Layout>
   </div>);
 }
@@ -38,6 +36,7 @@ export const pageQuery = graphql`
     allDataJson {
       edges {
         node {
+          id
           pusher {
             name
             email
@@ -45,6 +44,7 @@ export const pageQuery = graphql`
           commit {
             id
             timestamp
+            url
           }
           project {
             name
