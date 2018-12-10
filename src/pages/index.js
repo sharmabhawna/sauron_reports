@@ -15,7 +15,8 @@ const Layout = props => <MainContainer>{props.children}</MainContainer>
 
 const numberPassed = ({node}) => {
   let result=node.job.results.testResult;
-  return result.total - result.failed.length;
+  let failed = result.failed || []
+  return result.total - failed.length;
 }
 
 export default ({data}) => {

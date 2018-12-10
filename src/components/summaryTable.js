@@ -5,6 +5,12 @@ import {Link} from "gatsby";
 
 const linkToInternPage = intern => `/interns/${intern}`;
 
+const numberPassed = ({node}) => {
+  let result=node.job.results.testResult;
+  let failed = result.failed || []
+  return result.total - failed.length;
+}
+
 const toRow = ({node},index) => {
   let results = node.job.results.testResult;
   let intern = node.pusher.name;
@@ -12,7 +18,7 @@ const toRow = ({node},index) => {
     <td>{index+1}</td>
     <td><Link to={linkToInternPage(intern)}>{node.pusher.name}</Link></td>
     <td><a href={node.commit.url}>{node.commit.id.substr(0,8)}</a></td>
-    <td>{results.total - results.failed.length} / {results.total}</td>
+    <td>{numberPassed({node})} / {results.total}</td>
     <td><Moment fromNow ago>{node.commit.timestamp}</Moment></td>
   </tr>
 }
