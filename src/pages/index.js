@@ -2,32 +2,25 @@ import React from "react"
 import SummaryTable from "../components/summaryTable";
 import SummaryCards from "../components/summaryCards";
 import GlobalStyle from "../components/globalStyle";
-import {latestCommitPerPerson} from "../utils.js";
 import styled from "styled-components";
-import ld from "lodash"
+import Commits from "../commits";
 
 const MainContainer = styled.div`
   width:960px;
   margin: 0 auto;
 `
-
 const Layout = props => <MainContainer>{props.children}</MainContainer>
 
-const numberPassed = ({node}) => {
-  let result=node.job.results.testResult;
-  let failed = result.failed || []
-  return result.total - failed.length;
-}
-
 export default ({data}) => {
-  const commitsPerPerson = latestCommitPerPerson(data.allDataJson.edges);
-  const sortedCommits = ld.sortBy(commitsPerPerson,numberPassed).reverse();
+  let filteredData = data.allDataJson.edges.filter(x=>x.node.pusher.name !== "craftybones");
+  const allCommits = new Commits(filteredData);
+  const groupedCommits = allCommits.groupedByPerson();
 
   return (<div>
     <GlobalStyle/>
     <Layout>
-      <SummaryTable commits={sortedCommits}/>
-      <SummaryCards data={sortedCommits}/>
+      <SummaryTable groups={groupedCommits}/>
+      <SummaryCards data={[]}/>
     </Layout>
   </div>);
 }
@@ -54,6 +47,10 @@ export const pageQuery = graphql`
             results {
               testResult {
                 total,
+                passed{
+                  suite,
+                  title
+                },
                 failed {
                   suite,
                   title
