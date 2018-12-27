@@ -13,8 +13,8 @@ class Commits {
 
   groupedByPerson() {
     let groups = ld.groupBy(this.allCommits,(d)=>d.node.pusher.name)
-    let sortedGroups = ld.map(groups,latestCommit);
-    return sortedGroups
+    let groupsWithSortedCommits = ld.map(groups,latestCommit);
+    return groupsWithSortedCommits;
   }
 }
 
